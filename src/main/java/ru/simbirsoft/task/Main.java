@@ -17,15 +17,13 @@ public class Main {
      */
     static private String link = "";
     static private String path = "downloaded web-pages\\";
-    static private int cnt = 0;
 
     public static void main(String[] args) {
 
         InputData inputData = new InputUserData();
         if (link.equals(""))
             link = inputData.getUserData();  // Получить ссылку от пользователя
-        cnt++;
-        path += "Source_" + cnt + ".html";
+        path += "Source.html";
 
         // Создание необходимых объектов
         Counter mainCounter = new CounterUniqueWords();
