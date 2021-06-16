@@ -1,8 +1,8 @@
-##О задаче
+## О задаче  
 Выполненное ТЗ по Летнему интенсиву 2021 Java.  
 ## Руководство по запуску программы
-Файл запуска находится по пути `src/main/java/ru/simbirsoft/task/Main.java`,
-в папке `downloaded web-pages` находится файл `Source.html`,
+Файл запуска находится по пути `src/main/java/ru/simbirsoft/task/Main.java`.
+В папке `downloaded web-pages` находится файл `Source.html`,
 в котором хранится html код скачанной web-страницы.
 Также можно посмотреть примеры работы программы при 
 запуске файла `src/test/java/TestFunctionality.java`, 
