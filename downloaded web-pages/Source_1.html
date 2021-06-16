@@ -1,0 +1,529 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Метод сопряжённых градиентов,Метод Нелдера-Мида,Метод Ньютона. Метод Стеффенсена" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="/wiki/opensearch_desc.php" title="MachineLearning (Русский)" />
+		<link title="Creative Commons" type="application/rdf+xml" href="/wiki/index.php?title=%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D1%81%D0%BE%D0%BF%D1%80%D1%8F%D0%B6%D1%91%D0%BD%D0%BD%D1%8B%D1%85_%D0%B3%D1%80%D0%B0%D0%B4%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2&amp;action=creativecommons" rel="meta" />
+		<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/rss+xml" title="MachineLearning — RSS-лента" href="http://www.machinelearning.ru/wiki/index.php?title=%D0%A1%D0%BB%D1%83%D0%B6%D0%B5%D0%B1%D0%BD%D0%B0%D1%8F:Recentchanges&amp;feed=rss" />
+<link rel="alternate" type="application/atom+xml" title="MachineLearning - Atom лента" href="http://www.machinelearning.ru/wiki/index.php?title=%D0%A1%D0%BB%D1%83%D0%B6%D0%B5%D0%B1%D0%BD%D0%B0%D1%8F:Recentchanges&amp;feed=atom" />
+		<title>Метод сопряжённых градиентов</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "/wiki/skins/common/shared.css?116";
+			@import "/wiki/skins/monobook/main.css?116";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="/wiki/skins/common/commonPrint.css?116" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "/wiki/skins/monobook/IE50Fixes.css?116";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "/wiki/skins/monobook/IE55Fixes.css?116";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "/wiki/skins/monobook/IE60Fixes.css?116";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "/wiki/skins/monobook/IE70Fixes.css?116";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="/wiki/skins/common/IEFixes.js?116"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "/wiki/skins";
+var wgArticlePath = "/wiki/index.php?title=$1";
+var wgScriptPath = "/wiki";
+var wgScript = "/wiki/index.php";
+var wgServer = "http://www.machinelearning.ru";
+var wgCanonicalNamespace = "";
+var wgCanonicalSpecialPageName = false;
+var wgNamespaceNumber = 0;
+var wgPageName = "Метод_сопряжённых_градиентов";
+var wgTitle = "Метод сопряжённых градиентов";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = "1353";
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "ru";
+var wgContentLanguage = "ru";
+var wgBreakFrames = false;
+var wgCurRevisionId = "52597";
+var wgVersion = "1.12.0";
+var wgEnableAPI = true;
+var wgEnableWriteAPI = false;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="/wiki/skins/common/wikibits.js?116"><!-- wikibits js --></script>
+		<!-- Head Scripts -->
+		<script type="text/javascript" src="/wiki/skins/common/ajax.js?116"></script>
+		<script type="text/javascript" src="/wiki/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "/wiki/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "/wiki/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "/wiki/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+	</head>
+<body class="mediawiki ns-0 ltr page-Метод_сопряжённых_градиентов">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Метод сопряжённых градиентов</h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">Материал из MachineLearning.</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Перейти к: <a href="#column-one">навигация</a>, <a href="#searchInput">поиск</a></div>			<!-- start content -->
+			<table id="toc" class="toc" summary="Содержание"><tr><td><div id="toctitle"><h2>Содержание</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#.D0.92.D0.B2.D0.B5.D0.B4.D0.B5.D0.BD.D0.B8.D0.B5"><span class="tocnumber">1</span> <span class="toctext">Введение</span></a></li>
+<li class="toclevel-1"><a href="#.D0.9F.D0.BE.D1.81.D1.82.D0.B0.D0.BD.D0.BE.D0.B2.D0.BA.D0.B0_.D0.B7.D0.B0.D0.B4.D0.B0.D1.87.D0.B8_.D0.BE.D0.BF.D1.82.D0.B8.D0.BC.D0.B8.D0.B7.D0.B0.D1.86.D0.B8.D0.B8"><span class="tocnumber">2</span> <span class="toctext">Постановка задачи оптимизации</span></a></li>
+<li class="toclevel-1"><a href="#.D0.9C.D0.B5.D1.82.D0.BE.D0.B4_.D1.81.D0.BE.D0.BF.D1.80.D1.8F.D0.B6.D1.91.D0.BD.D0.BD.D1.8B.D1.85_.D0.B3.D1.80.D0.B0.D0.B4.D0.B8.D0.B5.D0.BD.D1.82.D0.BE.D0.B2_.D0.B4.D0.BB.D1.8F_.D0.BA.D0.B2.D0.B0.D0.B4.D1.80.D0.B0.D1.82.D0.B8.D1.87.D0.BD.D0.BE.D0.B3.D0.BE_.D1.84.D1.83.D0.BD.D0.BA.D1.86.D0.B8.D0.BE.D0.BD.D0.B0.D0.BB.D0.B0"><span class="tocnumber">3</span> <span class="toctext">Метод сопряжённых градиентов для квадратичного функционала</span></a>
+<ul>
+<li class="toclevel-2"><a href="#.D0.98.D0.B7.D0.BB.D0.BE.D0.B6.D0.B5.D0.BD.D0.B8.D0.B5_.D0.BC.D0.B5.D1.82.D0.BE.D0.B4.D0.B0"><span class="tocnumber">3.1</span> <span class="toctext">Изложение метода</span></a></li>
+<li class="toclevel-2"><a href="#.D0.90.D0.BD.D0.B0.D0.BB.D0.B8.D0.B7_.D0.BC.D0.B5.D1.82.D0.BE.D0.B4.D0.B0"><span class="tocnumber">3.2</span> <span class="toctext">Анализ метода</span></a>
+<ul>
+<li class="toclevel-3"><a href="#.D0.A1.D1.85.D0.BE.D0.B4.D0.B8.D0.BC.D0.BE.D1.81.D1.82.D1.8C_.D0.BC.D0.B5.D1.82.D0.BE.D0.B4.D0.B0"><span class="tocnumber">3.2.1</span> <span class="toctext">Сходимость метода</span></a></li>
+<li class="toclevel-3"><a href="#.D0.92.D1.8B.D1.87.D0.B8.D1.81.D0.BB.D0.B8.D1.82.D0.B5.D0.BB.D1.8C.D0.BD.D0.B0.D1.8F_.D1.81.D0.BB.D0.BE.D0.B6.D0.BD.D0.BE.D1.81.D1.82.D1.8C"><span class="tocnumber">3.2.2</span> <span class="toctext">Вычислительная сложность</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#.D0.A7.D0.B8.D1.81.D0.BB.D0.B5.D0.BD.D0.BD.D1.8B.D0.B9_.D0.BF.D1.80.D0.B8.D0.BC.D0.B5.D1.80"><span class="tocnumber">3.3</span> <span class="toctext">Численный пример</span></a></li>
+<li class="toclevel-2"><a href="#.D0.97.D0.B0.D0.BA.D0.BB.D1.8E.D1.87.D0.B5.D0.BD.D0.B8.D0.B5"><span class="tocnumber">3.4</span> <span class="toctext">Заключение</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#.D0.9C.D0.B5.D1.82.D0.BE.D0.B4_.D1.81.D0.BE.D0.BF.D1.80.D1.8F.D0.B6.D1.91.D0.BD.D0.BD.D1.8B.D1.85_.D0.B3.D1.80.D0.B0.D0.B4.D0.B8.D0.B5.D0.BD.D1.82.D0.BE.D0.B2_.D0.B2_.D0.BE.D0.B1.D1.89.D0.B5.D0.BC_.D1.81.D0.BB.D1.83.D1.87.D0.B0.D0.B5"><span class="tocnumber">4</span> <span class="toctext">Метод сопряжённых градиентов в общем случае</span></a>
+<ul>
+<li class="toclevel-2"><a href="#.D0.90.D0.BD.D0.B0.D0.BB.D0.B8.D0.B7_.D0.BC.D0.B5.D1.82.D0.BE.D0.B4.D0.B0_2"><span class="tocnumber">4.1</span> <span class="toctext">Анализ метода</span></a>
+<ul>
+<li class="toclevel-3"><a href="#.D0.A1.D1.85.D0.BE.D0.B4.D0.B8.D0.BC.D0.BE.D1.81.D1.82.D1.8C_.D0.BC.D0.B5.D1.82.D0.BE.D0.B4.D0.B0_2"><span class="tocnumber">4.1.1</span> <span class="toctext">Сходимость метода</span></a></li>
+<li class="toclevel-3"><a href="#.D0.92.D1.8B.D1.87.D0.B8.D1.81.D0.BB.D0.B8.D1.82.D0.B5.D0.BB.D1.8C.D0.BD.D0.B0.D1.8F_.D1.81.D0.BB.D0.BE.D0.B6.D0.BD.D0.BE.D1.81.D1.82.D1.8C_2"><span class="tocnumber">4.1.2</span> <span class="toctext">Вычислительная сложность</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#.D0.A7.D0.B8.D1.81.D0.BB.D0.BE.D0.B2.D0.BE.D0.B9_.D0.BF.D1.80.D0.B8.D0.BC.D0.B5.D1.80"><span class="tocnumber">4.2</span> <span class="toctext">Числовой пример</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#.D0.A0.D0.B5.D0.BA.D0.BE.D0.BC.D0.B5.D0.BD.D0.B4.D0.B0.D1.86.D0.B8.D0.B8_.D0.BF.D1.80.D0.BE.D0.B3.D1.80.D0.B0.D0.BC.D0.BC.D0.B8.D1.81.D1.82.D1.83"><span class="tocnumber">5</span> <span class="toctext">Рекомендации программисту</span></a></li>
+<li class="toclevel-1"><a href="#.D0.97.D0.B0.D0.BA.D0.BB.D1.8E.D1.87.D0.B5.D0.BD.D0.B8.D0.B5_2"><span class="tocnumber">6</span> <span class="toctext">Заключение</span></a></li>
+<li class="toclevel-1"><a href="#.D0.A1.D0.BC._.D1.82.D0.B0.D0.BA.D0.B6.D0.B5"><span class="tocnumber">7</span> <span class="toctext">См. также</span></a></li>
+<li class="toclevel-1"><a href="#.D0.A1.D0.BF.D0.B8.D1.81.D0.BE.D0.BA_.D0.BB.D0.B8.D1.82.D0.B5.D1.80.D0.B0.D1.82.D1.83.D1.80.D1.8B"><span class="tocnumber">8</span> <span class="toctext">Список литературы</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "показать"; var tocHideText = "убрать"; showTocToggle(); } </script>
+<a name=".D0.92.D0.B2.D0.B5.D0.B4.D0.B5.D0.BD.D0.B8.D0.B5"></a><h2> <span class="mw-headline">Введение</span></h2>
+<p>Метод сопряжённых градиентов — итерационный метод для безусловной оптимизации в многомерном пространстве. Основным достоинством метода является то, что он решает квадратичную задачу оптимизации за конечное число шагов. Поэтому, сначала описывается метод сопряжённых градиентов для оптимизации квадратичного функционала, выводятся итерационные формулы, приводятся оценки скорости сходимости. После этого показывается, как метод сопряжённых обобщается для оптимизации произвольного функционала, рассматриваются
+различные варианты метода, обсуждается сходимость.
+</p>
+<a name=".D0.9F.D0.BE.D1.81.D1.82.D0.B0.D0.BD.D0.BE.D0.B2.D0.BA.D0.B0_.D0.B7.D0.B0.D0.B4.D0.B0.D1.87.D0.B8_.D0.BE.D0.BF.D1.82.D0.B8.D0.BC.D0.B8.D0.B7.D0.B0.D1.86.D0.B8.D0.B8"></a><h2> <span class="mw-headline">Постановка задачи оптимизации</span></h2>
+<p>Пусть задано множество <img src="../mimetex/? X \subset R^n " alt= " X \subset R^n " /> и на этом множестве определена <i>целевая функция</i> (<i>objective function</i>) <img src="../mimetex/?f \: R^n \mapsto R" alt= "f \: R^n \mapsto R" />. Задача оптимизации состоит в нахождении на множестве <img src="../mimetex/?X" alt= "X" />  точной верхней или точной нижней грани <i>целевой функции</i>. <br />
+Множество точек, на которых достигается нижняя грань целевой функции обозначается  <img src="../mimetex/?X_* " alt= "X_* " />. <br />
+</p>
+<dl><dd><dl><dd><img src="../mimetex/?X_* = \{x \in X| f(x) = inf \limits_{x \in X} f(x) \} " alt= "X_* = \{x \in X| f(x) = inf \limits_{x \in X} f(x) \} " /> <br />
+</dd></dl>
+</dd></dl>
+<p>Если <img src="../mimetex/? X = R^n " alt= " X = R^n " />, то задача оптимизации называется <i>безусловной</i> (<i>unconstrained</i>).
+Если <img src="../mimetex/? X \neq R^n " alt= " X \neq R^n " />, то задача оптимизации называется <i>условной</i> (<i>constrained</i>).
+</p>
+<a name=".D0.9C.D0.B5.D1.82.D0.BE.D0.B4_.D1.81.D0.BE.D0.BF.D1.80.D1.8F.D0.B6.D1.91.D0.BD.D0.BD.D1.8B.D1.85_.D0.B3.D1.80.D0.B0.D0.B4.D0.B8.D0.B5.D0.BD.D1.82.D0.BE.D0.B2_.D0.B4.D0.BB.D1.8F_.D0.BA.D0.B2.D0.B0.D0.B4.D1.80.D0.B0.D1.82.D0.B8.D1.87.D0.BD.D0.BE.D0.B3.D0.BE_.D1.84.D1.83.D0.BD.D0.BA.D1.86.D0.B8.D0.BE.D0.BD.D0.B0.D0.BB.D0.B0"></a><h2> <span class="mw-headline">Метод сопряжённых градиентов для квадратичного функционала</span></h2>
+<a name=".D0.98.D0.B7.D0.BB.D0.BE.D0.B6.D0.B5.D0.BD.D0.B8.D0.B5_.D0.BC.D0.B5.D1.82.D0.BE.D0.B4.D0.B0"></a><h3> <span class="mw-headline"> Изложение метода </span></h3>
+<p>Рассмотрим следующую задачу оптимизации: <br />
+</p>
+<dl><dd><dl><dd><img src="../mimetex/?F(x) = \frac{1}{2} \langle Ax, x \rangle - \langle b, x \rangle \to inf, \quad x \in R^n" alt= "F(x) = \frac{1}{2} \langle Ax, x \rangle - \langle b, x \rangle \to inf, \quad x \in R^n" /> <br />
+</dd></dl>
+</dd></dl>
+<p>Здесь <img src="../mimetex/?A" alt= "A" /> - симметричная положительно определённая матрица размера <img src="../mimetex/?n \times n" alt= "n \times n" />.
+Такая задача оптимизации называется квадратичной. 
+Заметим, что <img src="../mimetex/?F'(x) = Ax - b" alt= "F'(x) = Ax - b" />. Условие экстремума функции <img src="../mimetex/?F'(x) = 0" alt= "F'(x) = 0" /> эквивалентно системе <img src="../mimetex/? Ax - b = 0" alt= " Ax - b = 0" />
+Функция <img src="../mimetex/?F" alt= "F" /> достигает своей нижней грани в единственной точке <img src="../mimetex/?x_*" alt= "x_*" />, определяемой уравнением <img src="../mimetex/? Ax_* = b" alt= " Ax_* = b" /> . Таким образом, данная задача оптимизации сводится к решению системы линейных уравнений <img src="../mimetex/? Ax = b" alt= " Ax = b" /> <br />
+Идея метода сопряжённых градиентов состоит в следующем: <br />
+Пусть <img src="../mimetex/? \{p_k \} _{k = 1}^n " alt= " \{p_k \} _{k = 1}^n " /> - базис в <img src="../mimetex/?R^n " alt= "R^n " /> . Тогда для любой точки <img src="../mimetex/? x_0 \in R^n " alt= " x_0 \in R^n " /> вектор <img src="../mimetex/?x_* - x_0" alt= "x_* - x_0" /> раскладывается по базису  <img src="../mimetex/?x_* - x_0 = \alpha_1 p_1 + \dots \alpha_n p_n " alt= "x_* - x_0 = \alpha_1 p_1 + \dots \alpha_n p_n " />
+Таким образом, <img src="../mimetex/?x_*" alt= "x_*" /> представимо в виде <br />
+</p>
+<dl><dd><dl><dd><img src="../mimetex/?x_* = x_0 + \alpha_1 p_1 + \dots \alpha_n p_n " alt= "x_* = x_0 + \alpha_1 p_1 + \dots \alpha_n p_n " />
+</dd></dl>
+</dd></dl>
+<p>Каждое следующее приближение вычисляется по формуле: <br />
+</p>
+<dl><dd><dl><dd><img src="../mimetex/?x_k = x_0 + \alpha_1 p_1 + \dots \alpha_k p_k " alt= "x_k = x_0 + \alpha_1 p_1 + \dots \alpha_k p_k " /> <br />
+</dd></dl>
+</dd></dl>
+<p><b>Определение.</b> Два вектора <img src="../mimetex/?p" alt= "p" /> и <img src="../mimetex/?q" alt= "q" /> называются <i>сопряжёнными</i> относительно симметричной матрицы B, если <img src="../mimetex/? \langle Bp,q \rangle = 0" alt= " \langle Bp,q \rangle = 0" />
+</p><p>Опишем способ построения базиса <img src="../mimetex/? \{p_k \}_{k = 1}^n " alt= " \{p_k \}_{k = 1}^n " /> в методе  сопряжённых градиентов
+В качестве начального приближения <img src="../mimetex/? x_0 " alt= " x_0 " /> выбираем произвольный вектор. 
+На каждой итерации <img src="../mimetex/?\alpha_k" alt= "\alpha_k" /> выбираются по правилу: <br />
+</p>
+<dl><dd><dl><dd><img src="../mimetex/?\alpha_k = argmin \limits_{\alpha_k} F(x_{k-1} + \alpha_k  p_k)" alt= "\alpha_k = argmin \limits_{\alpha_k} F(x_{k-1} + \alpha_k  p_k)" /> <br />
+</dd></dl>
+</dd></dl>
+<p>Базисные вектора <img src="../mimetex/? \{p_k \} " alt= " \{p_k \} " /> вычисляются по формулам: <br />
+</p>
+<dl><dd><dl><dd><img src="../mimetex/? p_1 = -F'(x_0) " alt= " p_1 = -F'(x_0) " /> <br />
+</dd><dd><img src="../mimetex/? p_{k+1} = - F'(x_{k}) + \beta_{k} p_{k} " alt= " p_{k+1} = - F'(x_{k}) + \beta_{k} p_{k} " /> <br />
+</dd></dl>
+</dd></dl>
+<p>Коэффициенты <img src="../mimetex/?\beta_k" alt= "\beta_k" /> выбираются так, чтобы векторы <img src="../mimetex/?p_k" alt= "p_k" /> и <img src="../mimetex/?p_{k + 1} " alt= "p_{k + 1} " />были сопряжёнными относительно А. <br />
+</p>
+<dl><dd><dl><dd><img src="../mimetex/?\beta_k =  \frac{ \langle F'(x_{k}), Ap_k \rangle}{ \langle Ap_k,  p_k \rangle} " alt= "\beta_k =  \frac{ \langle F'(x_{k}), Ap_k \rangle}{ \langle Ap_k,  p_k \rangle} " />
+</dd></dl>
+</dd></dl>
+<p><br />
+Если обозначить за <img src="../mimetex/?r_k = b - Ax_k = -F'(x_{k})" alt= "r_k = b - Ax_k = -F'(x_{k})" /> , то после нескольких упрощений получим окончательные формулы, используемые при применении метода сопряжённых градиентов на практике: <br />
+</p>
+<p align="center">
+<img src="../mimetex/?r_1 = b - Ax_0" alt= "r_1 = b - Ax_0" /> <br />
+<img src="../mimetex/? p_1 = r_1 " alt= " p_1 = r_1 " /> <br />
+<img src="../mimetex/?
+\begin{equation*}
+\alpha_k  = \frac{ \langle r_k, r_k \rangle }{ \langle Ap_k, p_k \rangle } \\
+x_{k + 1} = x_k + \alpha_k p_k \\
+r_{k + 1} = r_k - \alpha_k Ap_k \\
+\beta_k = \frac{ \langle r_{k + 1}, r_{k + 1} \rangle }{\langle r_k,  r_k \rangle} \\
+p_{k + 1} = r_{k + 1} + b_k p_k \\ 
+\end{equation*}
+" alt= "
+\begin{equation*}
+\alpha_k  = \frac{ \langle r_k, r_k \rangle }{ \langle Ap_k, p_k \rangle } \\
+x_{k + 1} = x_k + \alpha_k p_k \\
+r_{k + 1} = r_k - \alpha_k Ap_k \\
+\beta_k = \frac{ \langle r_{k + 1}, r_{k + 1} \rangle }{\langle r_k,  r_k \rangle} \\
+p_{k + 1} = r_{k + 1} + b_k p_k \\ 
+\end{equation*}
+" />
+</p>
+<a name=".D0.90.D0.BD.D0.B0.D0.BB.D0.B8.D0.B7_.D0.BC.D0.B5.D1.82.D0.BE.D0.B4.D0.B0"></a><h3> <span class="mw-headline"> Анализ метода </span></h3>
+<p>Для метода сопряжённых градиентов справедлива следующая теорема: <br />
+<b>Теорема</b>
+Пусть <img src="../mimetex/?F(x) = \frac{1}{2}  \langle Ax, x \rangle - \langle b, x \rangle " alt= "F(x) = \frac{1}{2}  \langle Ax, x \rangle - \langle b, x \rangle " />, где <img src="../mimetex/?A" alt= "A" /> - симметричная положительно определённая матрица размера <img src="../mimetex/?n" alt= "n" />. Тогда метод сопряжённых градиентов сходится не более чем за <img src="../mimetex/?n" alt= "n" /> шагов 
+и справедливы следующие соотношения:
+</p>
+<ol><li> <img src="../mimetex/?\langle A p_k, p_m \rangle = 0 \quad \forall k, m, \quad k \neq m" alt= "\langle A p_k, p_m \rangle = 0 \quad \forall k, m, \quad k \neq m" />
+</li><li> <img src="../mimetex/?\langle F'(x_k), F'(x_m)  \rangle = 0 \quad \forall k, m, \quad k \neq m" alt= "\langle F'(x_k), F'(x_m)  \rangle = 0 \quad \forall k, m, \quad k \neq m" />
+</li><li> <img src="../mimetex/?\langle F'(x_k),p_m)  \rangle = 0 \quad \forall k, m, \quad m < k " alt= "\langle F'(x_k),p_m)  \rangle = 0 \quad \forall k, m, \quad m < k " />
+</li></ol>
+<a name=".D0.A1.D1.85.D0.BE.D0.B4.D0.B8.D0.BC.D0.BE.D1.81.D1.82.D1.8C_.D0.BC.D0.B5.D1.82.D0.BE.D0.B4.D0.B0"></a><h4> <span class="mw-headline"> Сходимость метода </span></h4>
+<p>Если все вычисления точные, и исходные данные точны то метод сходится к решению системы не более чем за <img src="../mimetex/?n" alt= "n" /> итераций, где<img src="../mimetex/?n" alt= "n" />  - размерность системы. Более тонкий анализ показывает, что число итераций не превышает <img src="../mimetex/?m" alt= "m" />, где <img src="../mimetex/?m" alt= "m" /> -  число различных собственных значений матрицы A. 
+Для оценки скорости сходимости верна следующая (довольно грубая) оценка: <br />
+</p>
+<dl><dd><dl><dd><img src="../mimetex/? || x_k - x_* ||_A \leq  ( \frac{ \sqrt  {\kappa(A) } - 1}{ \sqrt { \kappa(A) } + 1} ) || x_0 - x_* ||_A " alt= " || x_k - x_* ||_A \leq  ( \frac{ \sqrt  {\kappa(A) } - 1}{ \sqrt { \kappa(A) } + 1} ) || x_0 - x_* ||_A " />, где
+</dd></dl>
+</dd></dl>
+<p><img src="../mimetex/? \kappa(A) = || A || \: || A^{-1} || = \lambda_1 / \lambda_n " alt= " \kappa(A) = || A || \: || A^{-1} || = \lambda_1 / \lambda_n " />. Она позволяет оценить скорость сходимости, если известны
+оценки для максимального <img src="../mimetex/?\lambda_1" alt= "\lambda_1" /> и минимального <img src="../mimetex/?\lambda_n" alt= "\lambda_n" /> собственных значений матрицы <img src="../mimetex/?A" alt= "A" />
+На практике чаще всего используют следующий критерий останова:
+</p>
+<dl><dd><dl><dd><img src="../mimetex/?|| r_k || < \eps" alt= "|| r_k || < \eps" />.
+</dd></dl>
+</dd></dl>
+<a name=".D0.92.D1.8B.D1.87.D0.B8.D1.81.D0.BB.D0.B8.D1.82.D0.B5.D0.BB.D1.8C.D0.BD.D0.B0.D1.8F_.D1.81.D0.BB.D0.BE.D0.B6.D0.BD.D0.BE.D1.81.D1.82.D1.8C"></a><h4> <span class="mw-headline"> Вычислительная сложность </span></h4>
+<p>На каждой итерации метода выполняется <img src="../mimetex/?O(n^2)" alt= "O(n^2)" /> операций. Такое количество операций требуется для вычисления произведения
+<img src="../mimetex/?Ap_k" alt= "Ap_k" /> - это самая трудоёмкая процедура на каждой итерации. Отальные вычисления требуют O(n) операций. 
+Суммарная вычислительная сложность метода не превышает  <img src="../mimetex/?O(n^3)" alt= "O(n^3)" /> - так как число итераций не больше n.
+</p>
+<a name=".D0.A7.D0.B8.D1.81.D0.BB.D0.B5.D0.BD.D0.BD.D1.8B.D0.B9_.D0.BF.D1.80.D0.B8.D0.BC.D0.B5.D1.80"></a><h3> <span class="mw-headline"> Численный пример </span></h3>
+<p>Применим метод сопряжённых градиентов для решения системы <img src="../mimetex/?Ax = b" alt= "Ax = b" />, где <br />
+<img src="../mimetex/? A = \begin{bmatrix}  3 &amp; 4 &amp; 0 \\ \\ 4 &amp; -3 &amp; 0 \\ \\ 0 &amp; 0 &amp; 5 \end{bmatrix}, \qquad 
+b = \begin{bmatrix} 1 \\ \\  \\ \\ 5 \\ \\ 9 \end{bmatrix}
+" alt= " A = \begin{bmatrix}  3 &amp; 4 &amp; 0 \\ \\ 4 &amp; -3 &amp; 0 \\ \\ 0 &amp; 0 &amp; 5 \end{bmatrix}, \qquad 
+b = \begin{bmatrix} 1 \\ \\  \\ \\ 5 \\ \\ 9 \end{bmatrix}
+" />
+<br />
+C помощью метода сопряжённых градиентов решение этой системы <img src="../mimetex/? 
+x =\begin{bmatrix} 0.92 \\ \\ -0.44 \\ \\ 1.80 \end{bmatrix}, 
+" alt= " 
+x =\begin{bmatrix} 0.92 \\ \\ -0.44 \\ \\ 1.80 \end{bmatrix}, 
+" />
+получается за две итерации. Собственные числа матрицы <img src="../mimetex/?A" alt= "A" /> - 5, 5, -5 - среди них два различных, поэтому, согласно теоретической оценке число итераций не могло превышать двух 
+</p>
+<a name=".D0.97.D0.B0.D0.BA.D0.BB.D1.8E.D1.87.D0.B5.D0.BD.D0.B8.D0.B5"></a><h3> <span class="mw-headline"> Заключение </span></h3>
+<p>Метод сопряжённых градиентов - один из наиболее эффективных методов решения СЛАУ с положительно определённой матрицей. Метод гарантирует сходимость за конечное число шагов, а нужная точность может быть достигнута значительно раньше. Основная проблема заключается в том, что из-за накопления погрешностей может нарушаться ортогональность базисных веторов <img src="../mimetex/?p_k" alt= "p_k" />, что ухудшает сходимость
+</p>
+<a name=".D0.9C.D0.B5.D1.82.D0.BE.D0.B4_.D1.81.D0.BE.D0.BF.D1.80.D1.8F.D0.B6.D1.91.D0.BD.D0.BD.D1.8B.D1.85_.D0.B3.D1.80.D0.B0.D0.B4.D0.B8.D0.B5.D0.BD.D1.82.D0.BE.D0.B2_.D0.B2_.D0.BE.D0.B1.D1.89.D0.B5.D0.BC_.D1.81.D0.BB.D1.83.D1.87.D0.B0.D0.B5"></a><h2> <span class="mw-headline"> Метод сопряжённых градиентов в общем случае </span></h2>
+<p>Расссмотрим теперь модификацию метода сопряжённых градиентов для случая, когда минимизируемый функционал не является квадратичным:
+Будем решать задачу:
+</p>
+<dl><dd><dl><dd><img src="../mimetex/?F(x) \to min, \quad x \in R^n " alt= "F(x) \to min, \quad x \in R^n " />. 
+</dd></dl>
+</dd></dl>
+<p><img src="../mimetex/?F(x) " alt= "F(x) " /> - непрерывно дифференцируемая в <img src="../mimetex/?R^n " alt= "R^n " /> функция.
+Чтобы модифицировать метод сопряжённых градиентов для решения этой задачи необходимо получить для <img src="../mimetex/?p_k, \alpha_k, \beta_k " alt= "p_k, \alpha_k, \beta_k " /> формулы, в которые не входит матрица А:
+</p>
+<dl><dd><dl><dd><img src="../mimetex/?\alpha_k = argmin \limits_{\alpha_k} F(x_{k-1} + \alpha_k  p_k)" alt= "\alpha_k = argmin \limits_{\alpha_k} F(x_{k-1} + \alpha_k  p_k)" /> 
+</dd><dd><img src="../mimetex/? p_{k+1} = - F'(x_{k}) + \beta_{k} p_{k} " alt= " p_{k+1} = - F'(x_{k}) + \beta_{k} p_{k} " />
+</dd></dl>
+</dd></dl>
+<p><img src="../mimetex/? \beta_k " alt= " \beta_k " /> можно вычислять по одной из трёх формул: <br />
+</p>
+<ol><li><img src="../mimetex/? \beta_k = - \frac{\langle F'(x_{k} ), F'(x_{k}) \rangle}{\langle F'(x_{k-1}), F'(x_{k-1}) \rangle} " alt= " \beta_k = - \frac{\langle F'(x_{k} ), F'(x_{k}) \rangle}{\langle F'(x_{k-1}), F'(x_{k-1}) \rangle} " /> - <i>Метод Флетчера - Ривса</i> (<i>Fletcher–Reeves method</i>)
+</li><li><img src="../mimetex/? \beta_k = \frac{\langle F'(x_{k}), F'(x_k) - F'(x_{k-1} ) \rangle}{\langle F'(x_{k - 1}), F'(x_{k - 1}) \rangle} " alt= " \beta_k = \frac{\langle F'(x_{k}), F'(x_k) - F'(x_{k-1} ) \rangle}{\langle F'(x_{k - 1}), F'(x_{k - 1}) \rangle} " /> - <i>Метод Полака - Райбера</i> (<i>Polak–Ribi`ere method</i>)
+</li><li><img src="../mimetex/? \beta_k = \frac{\langle F''(x_k) p_k, F'(x_k) \rangle}{\langle F''(x_{k - 1})p_k, p_k \rangle} " alt= " \beta_k = \frac{\langle F''(x_k) p_k, F'(x_k) \rangle}{\langle F''(x_{k - 1})p_k, p_k \rangle} " />
+</li></ol>
+<p>Если функция <img src="../mimetex/?F(x)" alt= "F(x)" /> - квадратичная и строго выпуклая, то все три формулы дают одинаковый результат. Если <img src="../mimetex/?F(x)" alt= "F(x)" /> -
+произвольная функция, то каждой из формул cоответствует своя модификация метода сопряжённых градиентов. Третья формула используется редко, так как она требует, чтобы функция <img src="../mimetex/?F(x) \in C^2(R^n)" alt= "F(x) \in C^2(R^n)" /> и вычисления гессиана функции <img src="../mimetex/?F(x)" alt= "F(x)" /> на каждом шаге метода. <br />
+</p>
+<a name=".D0.90.D0.BD.D0.B0.D0.BB.D0.B8.D0.B7_.D0.BC.D0.B5.D1.82.D0.BE.D0.B4.D0.B0_2"></a><h3> <span class="mw-headline">Анализ метода</span></h3>
+<p>Если функция <img src="../mimetex/?F(x)" alt= "F(x)" /> - не квадратичная, метод сопряжённых градиентов может и не сходиться за конечное число шагов. Кроме того, точное вычисление <img src="../mimetex/?\alpha_k" alt= "\alpha_k" /> на каждом шаге возможно только в редких случаях. Поэтому накопление погрешностей приводит к тому, что вектора <img src="../mimetex/? p_k" alt= " p_k" /> перестают указывать направление убывания функции <img src="../mimetex/?F(x)" alt= "F(x)" />. Тогда на каком-то шаге полагают <img src="../mimetex/?\beta_k = 0" alt= "\beta_k = 0" />. Совокупность всех номеров <img src="../mimetex/?k" alt= "k" />, при которых принимается <img src="../mimetex/?\beta_k = 0" alt= "\beta_k = 0" />, обозначим за <img src="../mimetex/?I_0" alt= "I_0" />. Номера <img src="../mimetex/?k \in I_0" alt= "k \in I_0" /> называются <i>моментами обновления метода</i>. На практике часто выбирают 
+<img src="../mimetex/?I_0 = \{n, 2n, 3n, \dots \}" alt= "I_0 = \{n, 2n, 3n, \dots \}" />, где <img src="../mimetex/?n" alt= "n" /> - размерность пространства.
+</p>
+<a name=".D0.A1.D1.85.D0.BE.D0.B4.D0.B8.D0.BC.D0.BE.D1.81.D1.82.D1.8C_.D0.BC.D0.B5.D1.82.D0.BE.D0.B4.D0.B0_2"></a><h4> <span class="mw-headline"> Сходимость метода </span></h4>
+<p>Для метода Флетчера - Ривса существует теорема о сходимости, накладывающая не слишком жёсткие условия на минимизируемую функцию <img src="../mimetex/?F(x)" alt= "F(x)" />: <br />
+<b>Теорема</b>. <br />
+Пусть <img src="../mimetex/? F(x) \in C^1(R^n)" alt= " F(x) \in C^1(R^n)" /> и выполняются следующие условия:
+</p>
+<ol><li><img src="../mimetex/? \alpha_k " alt= " \alpha_k " /> удовлетворяет строгим условиям Вольфа:
+<ol><li> <img src="../mimetex/? F(x_{k -1} + \alpha_k p_k ) \leq F(x_{k - 1}) +  c_1 \alpha_k \langle F'(x_{k - 1}), p_k \rangle " alt= " F(x_{k -1} + \alpha_k p_k ) \leq F(x_{k - 1}) +  c_1 \alpha_k \langle F'(x_{k - 1}), p_k \rangle " /> <br />
+</li><li> <img src="../mimetex/? | \langle F'(x_{k -1} + \alpha_k p_k), p_k \rangle  \leq c_2 |\langle F'(x_{k - 1}), p_k \rangle|" alt= " | \langle F'(x_{k -1} + \alpha_k p_k), p_k \rangle  \leq c_2 |\langle F'(x_{k - 1}), p_k \rangle|" /> где <img src="../mimetex/? 0 < c_1 < c_2 < 1/2 " alt= " 0 < c_1 < c_2 < 1/2 " /> <br />
+</li></ol>
+</li><li>Множество <img src="../mimetex/? M = \{ x | F(x) \leq F(x_0) \}" alt= " M = \{ x | F(x) \leq F(x_0) \}" />  ограничено  <br />
+</li><li> Производная <img src="../mimetex/?F'(x)" alt= "F'(x)" /> удовлетворяет условию Липшица с константой <img src="../mimetex/?L" alt= "L" /> в некоторой окрестности <img src="../mimetex/? N " alt= " N " />
+</li></ol>
+<p>множества M: <img src="../mimetex/?||F'(x_1) - F'(x_2)|| \leq L ||x_1 - x_2|| \qquad \forall x_1, x_2 \in N " alt= "||F'(x_1) - F'(x_2)|| \leq L ||x_1 - x_2|| \qquad \forall x_1, x_2 \in N " />. <br />
+Тогда <br />
+</p>
+<dl><dd><dl><dd><img src="../mimetex/? \lim \limits_{k \to \infty} inf ||F'(x_k)| = 0 " alt= " \lim \limits_{k \to \infty} inf ||F'(x_k)| = 0 " />
+</dd></dl>
+</dd></dl>
+<p>Для метода Полака-Райбера доказана сходимость в предположении, что <img src="../mimetex/?F(x)" alt= "F(x)" /> - строго выпуклая функция. В общем случае доказать сходимость метода Полака - Райбера невозможно. Напоротив, верна следующая теорема: <br />
+<b> Теорема. </b> <br />
+Предположим, что в методе Полака-Райбера значения <img src="../mimetex/?\alpha_k" alt= "\alpha_k" /> на каждом шаге вычисляются точно. Тогда
+существует функция <img src="../mimetex/?F \: R^3 \mapsto R, \quad F(x) \in C^2(R^3)" alt= "F \: R^3 \mapsto R, \quad F(x) \in C^2(R^3)" />, и начальное приближение <img src="../mimetex/?x_0 " alt= "x_0 " />, такие что 
+<img src="../mimetex/?\exists \delta > 0, \forall k = 0, 1, 2, ... \quad ||f(x_k)|| > \delta" alt= "\exists \delta > 0, \forall k = 0, 1, 2, ... \quad ||f(x_k)|| > \delta" />.
+</p><p>Тем не менее, на практике метод Полака-Райбера работает лучше. <br />
+Наиболее распространённые критерии останова на практике:
+Норма градиента становится меньше некоторого порога <br />
+Значение функции в течении m последовательных итераций почти не изменилось
+</p>
+<a name=".D0.92.D1.8B.D1.87.D0.B8.D1.81.D0.BB.D0.B8.D1.82.D0.B5.D0.BB.D1.8C.D0.BD.D0.B0.D1.8F_.D1.81.D0.BB.D0.BE.D0.B6.D0.BD.D0.BE.D1.81.D1.82.D1.8C_2"></a><h4> <span class="mw-headline">Вычислительная сложность</span></h4>
+<p>На каждой итерации методов Полака-Райбера или Флетчера-Ривса по одному разу вычисляются  функция <img src="../mimetex/?F(x)" alt= "F(x)" /> и её градиент
+<img src="../mimetex/?F'(x)" alt= "F'(x)" />, решается задача одномерной оптимизации 
+<img src="../mimetex/?F(x_{k - 1} + \alpha_k p_k) \to min \limits_{\alpha_k \geq 0} " alt= "F(x_{k - 1} + \alpha_k p_k) \to min \limits_{\alpha_k \geq 0} " /> . Таким образом, сложность одного шага метода сопряжённых градиентов имеет тот же порядок, что и сложность шага метода скорейшего спуска. На практике метод сопряжённых градиентов
+показывает лучшую скорость сходимости.
+</p>
+<a name=".D0.A7.D0.B8.D1.81.D0.BB.D0.BE.D0.B2.D0.BE.D0.B9_.D0.BF.D1.80.D0.B8.D0.BC.D0.B5.D1.80"></a><h3> <span class="mw-headline"> Числовой пример</span></h3>
+<p>Будем искать методом сопряжённых градиентов минимум функции <img src="../mimetex/?F(x_1, x2) = (x_1 - 5)^2 (x_2 - 4)^2 + (x_1 - 5)^2 + (x_2 - 4)^2 + 1" alt= "F(x_1, x2) = (x_1 - 5)^2 (x_2 - 4)^2 + (x_1 - 5)^2 + (x_2 - 4)^2 + 1" />. Минимум этой функции равен 1 и достигается в точке (5, 4).
+Сравним на примере этой функции методы Полака-Райбера и Флетчера-Ривса. 
+Итерации в обоих методах прекращаются, когда на текущем шаге квадрат нормы градиента становится меньше <img src="../mimetex/?\varepsilon" alt= "\varepsilon" />.
+Для выбора <img src="../mimetex/? \alpha_k " alt= " \alpha_k " /> используется метод золотого сечения
+</p>
+<table class="standard">
+<tr>
+<th rowspan="2"> <img src="../mimetex/? \varepsilon " alt= " \varepsilon " />
+</th><th colspan="3">  Метод Флетчера - Ривса
+</th><th colspan="3">  Метод Полака - Райбера
+</th></tr>
+<tr>
+<th>Число итераций
+</th><th>Найденное решение
+</th><th>Значение функции
+</th><th>Число итераций
+</th><th>Найденное решение
+</th><th>Значение функции
+</th></tr>
+<tr>
+<td> 0.01
+</td><td> 18 </td><td> (5.01382198,3.9697932) </td><td> 1.00110367
+</td><td> 15 </td><td> (5.03942877,4.00003512) </td><td> 1.00155463
+</td></tr>
+<tr>
+<td> 0.001
+</td><td> 20 </td><td> (5.01056482,3.99018026) </td><td> 1.00020805
+</td><td> 18 </td><td> (4.9915894,3.99999044) </td><td> 1.00007074
+</td></tr>
+<tr>
+<td> 0.0001
+</td><td> 24 </td><td> (4.9979991,4.00186173) </td><td> 1.00000747
+</td><td> 20 </td><td> (5.00336181,4.0000018) </td><td>1.0000113
+</td></tr>
+<tr>
+<td> 0.00001
+</td><td> 25 </td><td> (4.99898277,4.00094645) </td><td> 1.00000193
+</td><td> 22 </td><td> (4.99846808,3.99999918) </td><td> 1.00000235
+</td></tr>
+<tr>
+<td> 0.00001
+</td><td> 29 </td><td> (4.99974658,4.0002358) </td><td> 1.00000012
+</td><td> 26 </td><td> (4.99955034,3.99999976) </td><td>1.0000002
+</td></tr>
+</table>
+<a name=".D0.A0.D0.B5.D0.BA.D0.BE.D0.BC.D0.B5.D0.BD.D0.B4.D0.B0.D1.86.D0.B8.D0.B8_.D0.BF.D1.80.D0.BE.D0.B3.D1.80.D0.B0.D0.BC.D0.BC.D0.B8.D1.81.D1.82.D1.83"></a><h2> <span class="mw-headline"> Рекомендации программисту </span></h2>
+<p>Реализовано два варианта метода сопряжённых градиентов: для минимизации квадратичного функционала, и для минимизации произвольной функции.
+В первом случае метод реализуется функцией <br />
+<code>vector&lt;double&gt; FindSolution(matrix&lt;double&gt; A, vector&lt;double&gt; b)</code> <br /> 
+Здесь <b>A</b> и <b>b</b> - матрица и вектор, фигурирющие в определении квадратичной задачи оптимизации. <br /> 
+Для минимизации произвольного функционала можно использовать одну из двух функций: <br />
+<code>vector&lt;double&gt; FletcherRievesMethod(int spaceSize, Function F,  vector&lt;double&gt; (*GradF) (vector&lt;double&gt;)) </code> <br />
+<code>vector&lt;double&gt; PolakRibiereMethod(int spaceSize, Function F,  vector&lt;double&gt; (*GradF) (vector&lt;double&gt;)) </code> <br />
+Параметры для обеих функций совпадают и имеют следующий смысл: <br />
+<b> spaceSize </b> - размерность пространства( число переменных, от которых зависит минимизируемый функционал) <br />
+<b> F </b> - указатель на минимизируемую функцию. Функция должна иметь вид <code> double &lt;имя функции&gt;( vector&lt;double&gt;) </code> <br />
+<b> GradF </b> - указатель на функцию, вычисляющую градиент минимизируемого функционала <br />
+Оба метода используют вспомогательную функцию для решения задачи одномерной оптимизации. В программе реализована одномерная оптимизация методом золотого сечения.
+</p><p>Исходный код программ:
+<a href="/wiki/images/f/f7/Slimper_LinearGradient.zip" class="internal" title="Slimper LinearGradient.zip">Линейный метод сопряженных градиентов, исходный код [1кб]</a> <br />
+<a href="/wiki/images/7/7e/Slimper_NonLinearGradient.zip" class="internal" title="Slimper NonLinearGradient.zip">Нелинейный метод сопряжённых градиентов, исходный код [1кб] </a><br />
+При написании программ использовалась библиотека Boost, скачать которую можно по адресу <a href="http://www.boost.org" class="external free" title="http://www.boost.org" rel="nofollow">http://www.boost.org</a>
+</p>
+<a name=".D0.97.D0.B0.D0.BA.D0.BB.D1.8E.D1.87.D0.B5.D0.BD.D0.B8.D0.B5_2"></a><h2> <span class="mw-headline"> Заключение </span></h2>
+<p>В методе сопряжённых градиентов используется информация только о линейной части приращения в точке, как и в методах градиентного спуска. При этом метод сопряжённых градиентов позволяет решать квадратичные задачи за конечное число шагов. На многих других задачах метод сопряжённого градиента также превосходит метод градиентного спуска.  
+Сходимость метода градиентов существенно зависит от того, насколько точно решается задача одномерной оптимизации <img src="../mimetex/?F(x_{k - 1} + \alpha_k p_k) \to min \limits_{\alpha_k \geq 0} " alt= "F(x_{k - 1} + \alpha_k p_k) \to min \limits_{\alpha_k \geq 0} " />. Возможные зацикливания метода устраняются с помощью обновлений. Тем не менее, если метод попадёт в локальный минимум функции, скорее всего, ему не удастся из него выбраться.
+</p>
+<a name=".D0.A1.D0.BC._.D1.82.D0.B0.D0.BA.D0.B6.D0.B5"></a><h2> <span class="mw-headline"> См. также </span></h2>
+<ul><li> <a href="/wiki/index.php?title=%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D0%9D%D0%B5%D0%BB%D0%B4%D0%B5%D1%80%D0%B0-%D0%9C%D0%B8%D0%B4%D0%B0" title="Метод Нелдера-Мида">Метод Нелдера-Мида</a>
+</li><li> <a href="/wiki/index.php?title=%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D0%9D%D1%8C%D1%8E%D1%82%D0%BE%D0%BD%D0%B0._%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D0%A1%D1%82%D0%B5%D1%84%D1%84%D0%B5%D0%BD%D1%81%D0%B5%D0%BD%D0%B0" title="Метод Ньютона. Метод Стеффенсена">Метод Ньютона. Метод Стеффенсена</a>
+</li></ul>
+<a name=".D0.A1.D0.BF.D0.B8.D1.81.D0.BE.D0.BA_.D0.BB.D0.B8.D1.82.D0.B5.D1.80.D0.B0.D1.82.D1.83.D1.80.D1.8B"></a><h2> <span class="mw-headline"> Список литературы </span></h2>
+<ul><li> <i> Васильев Ф. П. </i> &nbsp; Методы оптимизации - Издательство «Факториал Пресс», 2002 <br />
+</li><li> <i> Nocedal J., Wright S.J. </i> &nbsp; Numerical Optimization ,Springer, 1999
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 428/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+#ifexist count: 0/100
+-->
+
+<!-- Saved in parser cache with key wikidb:pcache:idhash:1353-0!1!0!!ru!2!edit=0 and timestamp 20210613084200 -->
+<div class="printfooter">
+Источник — «<a href="http://www.machinelearning.ru/wiki/index.php?title=%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D1%81%D0%BE%D0%BF%D1%80%D1%8F%D0%B6%D1%91%D0%BD%D0%BD%D1%8B%D1%85_%D0%B3%D1%80%D0%B0%D0%B4%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2">http://www.machinelearning.ru/wiki/index.php?title=%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D1%81%D0%BE%D0%BF%D1%80%D1%8F%D0%B6%D1%91%D0%BD%D0%BD%D1%8B%D1%85_%D0%B3%D1%80%D0%B0%D0%B4%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2</a>»</div>
+			<div id="catlinks"><p class='catlinks'><a href="/wiki/index.php?title=%D0%A1%D0%BB%D1%83%D0%B6%D0%B5%D0%B1%D0%BD%D0%B0%D1%8F:Categories" title="Служебная:Categories">Категория</a>: <span dir='ltr'><a href="/wiki/index.php?title=%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%8F:%D0%A7%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5_%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D1%8B_%D0%B1%D0%B5%D0%B7%D1%83%D1%81%D0%BB%D0%BE%D0%B2%D0%BD%D0%BE%D0%B9_%D0%BE%D0%BF%D1%82%D0%B8%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8" title="Категория:Численные методы безусловной оптимизации">Численные методы безусловной оптимизации</a></span></p></div>			<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Просмотры</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-main" class="selected"><a href="/wiki/index.php?title=%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D1%81%D0%BE%D0%BF%D1%80%D1%8F%D0%B6%D1%91%D0%BD%D0%BD%D1%8B%D1%85_%D0%B3%D1%80%D0%B0%D0%B4%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2" title="Содержание статьи [c]" accesskey="c">Статья</a></li>
+					 <li id="ca-talk" class="new"><a href="/wiki/index.php?title=%D0%9E%D0%B1%D1%81%D1%83%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5:%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D1%81%D0%BE%D0%BF%D1%80%D1%8F%D0%B6%D1%91%D0%BD%D0%BD%D1%8B%D1%85_%D0%B3%D1%80%D0%B0%D0%B4%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2&amp;action=edit" title="Обсуждение содержания страницы [t]" accesskey="t">Обсуждение</a></li>
+					 <li id="ca-viewsource"><a href="/wiki/index.php?title=%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D1%81%D0%BE%D0%BF%D1%80%D1%8F%D0%B6%D1%91%D0%BD%D0%BD%D1%8B%D1%85_%D0%B3%D1%80%D0%B0%D0%B4%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2&amp;action=edit" title="Эта страница защищена от изменений, но вы можете посмотреть и скопировать её исходный текст [e]" accesskey="e">Просмотр</a></li>
+					 <li id="ca-history"><a href="/wiki/index.php?title=%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D1%81%D0%BE%D0%BF%D1%80%D1%8F%D0%B6%D1%91%D0%BD%D0%BD%D1%8B%D1%85_%D0%B3%D1%80%D0%B0%D0%B4%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2&amp;action=history" title="Журнал изменений страницы [h]" accesskey="h">История</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Личные инструменты</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="/wiki/index.php?title=%D0%A1%D0%BB%D1%83%D0%B6%D0%B5%D0%B1%D0%BD%D0%B0%D1%8F:Userlogin&amp;returnto=%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D1%81%D0%BE%D0%BF%D1%80%D1%8F%D0%B6%D1%91%D0%BD%D0%BD%D1%8B%D1%85_%D0%B3%D1%80%D0%B0%D0%B4%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2" title="Здесь можно зарегистрироваться в системе, но это необязательно [o]" accesskey="o">Представиться системе</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(/wiki/logo.png);" href="/wiki/index.php?title=%D0%97%D0%B0%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0" title="Перейти на заглавную страницу [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Навигация</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-mainpage"><a href="/wiki/index.php?title=%D0%97%D0%B0%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0" title="Перейти на заглавную страницу [z]" accesskey="z">Заглавная страница</a></li>
+				<li id="n-portal"><a href="/wiki/index.php?title=MachineLearning:%D0%9F%D0%BE%D1%80%D1%82%D0%B0%D0%BB_%D1%81%D0%BE%D0%BE%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B0" title="О проекте, о том, что вы можете сделать, где что находится">Сообщество</a></li>
+				<li id="n-.D0.9D.D0.BE.D0.B2.D0.BE.D1.81.D1.82.D0.B8"><a href="/wiki/index.php?title=%D0%A8%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD:%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8">Новости</a></li>
+				<li id="n-.D0.9F.D0.BE.D1.81.D0.BB.D0.B5.D0.B4.D0.BD.D0.B8.D0.B5-.D0.BF.D1.80.D0.B0.D0.B2.D0.BA.D0.B8"><a href="/wiki/index.php?title=%D0%A1%D0%BB%D1%83%D0%B6%D0%B5%D0%B1%D0%BD%D0%B0%D1%8F:Recentchanges">Последние правки</a></li>
+				<li id="n-randompage"><a href="/wiki/index.php?title=%D0%A1%D0%BB%D1%83%D0%B6%D0%B5%D0%B1%D0%BD%D0%B0%D1%8F:Random" title="Посмотреть случайную страницу [x]" accesskey="x">Случайная статья</a></li>
+				<li id="n-help"><a href="/wiki/index.php?title=%D0%A1%D0%BF%D1%80%D0%B0%D0%B2%D0%BA%D0%B0:%D0%A1%D0%BF%D1%80%D0%B0%D0%B2%D0%BA%D0%B0" title="Справочник по проекту «MachineLearning»">Справка</a></li>
+				<li id="n-.D0.98.D0.BD.D1.81.D1.82.D1.80.D1.83.D0.BA.D1.82.D0.B0.D0.B6"><a href="/wiki/index.php?title=MachineLearning:%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%B0%D0%B6">Инструктаж</a></li>
+				<li id="n-.D0.92.D0.BE.D0.BF.D1.80.D0.BE.D1.81.D1.8B-.D0.B8-.D0.BE.D1.82.D0.B2.D0.B5.D1.82.D1.8B"><a href="/wiki/index.php?title=MachineLearning:%D0%A7%D0%B0%D0%92%D0%9E">Вопросы и ответы</a></li>
+				<li id="n-ToDo"><a href="/wiki/index.php?title=MachineLearning:ToDo">ToDo</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-.C2.A0'>
+		<h5>&nbsp;</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-.D0.AD.D0.BD.D1.86.D0.B8.D0.BA.D0.BB.D0.BE.D0.BF.D0.B5.D0.B4.D0.B8.D1.8F-.D0.B0.D0.BD.D0.B0.D0.BB.D0.B8.D0.B7.D0.B0-.D0.B4.D0.B0.D0.BD.D0.BD.D1.8B.D1.85"><a href="/wiki/index.php?title=%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%8F:%D0%AD%D0%BD%D1%86%D0%B8%D0%BA%D0%BB%D0%BE%D0%BF%D0%B5%D0%B4%D0%B8%D1%8F_%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0_%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85">Энциклопедия анализа данных</a></li>
+				<li id="n-.D0.9F.D0.BE.D0.BF.D1.83.D0.BB.D1.8F.D1.80.D0.BD.D1.8B.D0.B5-.D0.B8-.D0.BE.D0.B1.D0.B7.D0.BE.D1.80.D0.BD.D1.8B.D0.B5-.D1.81.D1.82.D0.B0.D1.82.D1.8C.D0.B8"><a href="/wiki/index.php?title=%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%8F:%D0%9F%D0%BE%D0%BF%D1%83%D0%BB%D1%8F%D1%80%D0%BD%D1%8B%D0%B5_%D0%B8_%D0%BE%D0%B1%D0%B7%D0%BE%D1%80%D0%BD%D1%8B%D0%B5_%D1%81%D1%82%D0%B0%D1%82%D1%8C%D0%B8">Популярные и обзорные статьи</a></li>
+				<li id="n-.D0.9F.D1.83.D0.B1.D0.BB.D0.B8.D0.BA.D0.B0.D1.86.D0.B8.D0.B8"><a href="/wiki/index.php?title=%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%8F:%D0%9F%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8">Публикации</a></li>
+				<li id="n-.D0.9F.D0.BE.D0.BB.D0.B5.D0.B7.D0.BD.D1.8B.D0.B5-.D1.81.D1.81.D1.8B.D0.BB.D0.BA.D0.B8"><a href="/wiki/index.php?title=%D0%9F%D0%BE%D0%BB%D0%B5%D0%B7%D0%BD%D1%8B%D0%B5_%D1%81%D1%81%D1%8B%D0%BB%D0%BA%D0%B8">Полезные ссылки</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Поиск</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/wiki/index.php?title=%D0%A1%D0%BB%D1%83%D0%B6%D0%B5%D0%B1%D0%BD%D0%B0%D1%8F:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Искать это слово [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Перейти" title="Перейти к странице, имеющей в точности такое название" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Найти" title="Найти страницы, содержащие указанный текст" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Инструменты</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="/wiki/index.php?title=%D0%A1%D0%BB%D1%83%D0%B6%D0%B5%D0%B1%D0%BD%D0%B0%D1%8F:Whatlinkshere/%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D1%81%D0%BE%D0%BF%D1%80%D1%8F%D0%B6%D1%91%D0%BD%D0%BD%D1%8B%D1%85_%D0%B3%D1%80%D0%B0%D0%B4%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2" title="Список всех страниц, которые ссылаются на эту страницу [j]" accesskey="j">Ссылки сюда</a></li>
+				<li id="t-recentchangeslinked"><a href="/wiki/index.php?title=%D0%A1%D0%BB%D1%83%D0%B6%D0%B5%D0%B1%D0%BD%D0%B0%D1%8F:Recentchangeslinked/%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D1%81%D0%BE%D0%BF%D1%80%D1%8F%D0%B6%D1%91%D0%BD%D0%BD%D1%8B%D1%85_%D0%B3%D1%80%D0%B0%D0%B4%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2" title="Последние изменения в страницах, на которые ссылается эта страница [k]" accesskey="k">Связанные правки</a></li>
+<li id="t-upload"><a href="/wiki/index.php?title=%D0%A1%D0%BB%D1%83%D0%B6%D0%B5%D0%B1%D0%BD%D0%B0%D1%8F:Upload" title="Загрузить изображения или мультимедиа-файлы [u]" accesskey="u">Загрузить файл</a></li>
+<li id="t-specialpages"><a href="/wiki/index.php?title=%D0%A1%D0%BB%D1%83%D0%B6%D0%B5%D0%B1%D0%BD%D0%B0%D1%8F:Specialpages" title="Список служебных страниц [q]" accesskey="q">Спецстраницы</a></li>
+				<li id="t-print"><a href="/wiki/index.php?title=%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D1%81%D0%BE%D0%BF%D1%80%D1%8F%D0%B6%D1%91%D0%BD%D0%BD%D1%8B%D1%85_%D0%B3%D1%80%D0%B0%D0%B4%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2&amp;printable=yes" title="Версия для печати этой страницы [p]" accesskey="p">Версия для печати</a></li>				<li id="t-permalink"><a href="/wiki/index.php?title=%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D1%81%D0%BE%D0%BF%D1%80%D1%8F%D0%B6%D1%91%D0%BD%D0%BD%D1%8B%D1%85_%D0%B3%D1%80%D0%B0%D0%B4%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2&amp;oldid=52597" title="Постоянная ссылка на эту версию страницы">Постоянная ссылка</a></li>			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="/wiki/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+				<div id="f-copyrightico"><a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="/wiki/skins/common/images/cc-logo.png" alt='Creative Commons Attribution/Share-Alike' /></a></div>
+			<ul id="f-list">
+				<li id="lastmod"> Последнее изменение этой страницы: 13:09, 3 июня 2016.</li>
+				<li id="viewcount">К этой странице обращались 95 722 раза.</li>
+				<li id="copyright">Содержимое доступно в соответствии с <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="external " title="http://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">Creative Commons Attribution/Share-Alike</a>.</li>
+				<li id="privacy"><a href="/wiki/index.php?title=MachineLearning:%D0%9F%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0_%D0%BA%D0%BE%D0%BD%D1%84%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8" title="MachineLearning:Политика конфиденциальности">Политика конфиденциальности</a></li>
+				<li id="about"><a href="/wiki/index.php?title=MachineLearning:%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5" title="MachineLearning:Описание">Описание MachineLearning</a></li>
+				<li id="disclaimer"><a href="/wiki/index.php?title=MachineLearning:%D0%9E%D1%82%D0%BA%D0%B0%D0%B7_%D0%BE%D1%82_%D0%BE%D1%82%D0%B2%D0%B5%D1%82%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D0%B8" title="MachineLearning:Отказ от ответственности">Отказ от ответственности</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-4591433-2");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script><!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+  _paq.push(["setCookieDomain", "*.machinelearning.ru"]);
+  _paq.push(["setDomains", ["*.machinelearning.ru","*.www.machinelearning.ru"]]);
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://s.inmedias.ru/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "3]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="http://s.inmedias.ru/piwik.php?idsite=3&amp;rec=1" style="border:0" alt="" /></noscript>
+<!-- End Piwik Code --><!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter30907996 = new Ya.Metrika({id:30907996,
+                    webvisor:true,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/30907996" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter --></div>
+<!-- Served in 0.077 secs. --></body></html>

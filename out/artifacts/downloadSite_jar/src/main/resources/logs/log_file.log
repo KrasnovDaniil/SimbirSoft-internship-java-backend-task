@@ -1,0 +1,16 @@
+2020-07-02 15:06:15 INFO  main:87 - Введена ссылка Mahttps://habr.com/ru/company/1cloud/blog/507490/
+2020-07-02 15:06:15 INFO  main:22 - 
+Начало работы программы
+2020-07-02 15:06:15 INFO  DownlaodPage:21 - Метод run() класса DownloadHTMLPage.DownlaodPage запущен
+2020-07-02 15:06:15 ERROR DownlaodPage:45 - Ошибка при загрузке страницы
+2020-07-02 15:06:15 INFO  DownlaodPage:52 - Потоки ввода и вывода закрыты
+2020-07-02 15:06:15 INFO  main:33 - Конец работы программы
+2020-07-02 15:10:01 INFO  main:87 - Введена ссылка https://www.simbirsoft.com/
+2020-07-02 15:10:01 INFO  main:22 - 
+Начало работы программы
+2020-07-02 15:10:01 INFO  DownlaodPage:21 - Метод run() класса DownloadHTMLPage.DownlaodPage запущен
+2020-07-02 15:10:01 INFO  DownlaodPage:29 - Ссылка https://www.simbirsoft.com/ получена 
+2020-07-02 15:10:02 INFO  DownlaodPage:31 - Соединение установлено
+2020-07-02 15:10:02 ERROR DownlaodPage:45 - Ошибка при загрузке страницы
+2020-07-02 15:10:02 INFO  DownlaodPage:52 - Потоки ввода и вывода закрыты
+2020-07-02 15:10:02 INFO  main:33 - Конец работы программы
